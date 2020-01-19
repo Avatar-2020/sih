@@ -42,16 +42,16 @@ def get_secret_hash(username):
     d2 = base64.b64encode(dig).decode()
     return d2
 def lambda_handler(event, context):    
-    for field in ["username", "email", "password","type","lat","long","addr"]:
+    for field in ["username", "email", "password","custom:type","custom:lat","custom:long","custom:zip"]:
         if not event.get(field):
             return {"error": False, "success": True, 'message': f"{field} is not present", "data": None}
     username = event['username']
     email = event["email"]
     password = event['password']
-    lat = event["lat"]
-    longi=event["long"]
-    addr=event['addr']
-    type_part=event['type']
+    lat = event["custom:lat"]
+    longi=event["custom:long"]
+    addr=event['custom:zip']
+    type_part=event['custom:type']
     
     table.put_item(Item=json.dumps({'username':username,
       'lat':lat,
@@ -67,7 +67,7 @@ def lambda_handler(event, context):
             Password=password, 
             UserAttributes=[
             {
-                'Name': "addr",
+                'Name': "custom:zip",
                 'Value': addr
             },
             {
@@ -75,15 +75,15 @@ def lambda_handler(event, context):
                 'Value': email
             },
             {
-                'Name': "type",
+                'Name': "custom:type",
                 'Value': type_part
             },
             {
-                'Name': "lat",
+                'Name': "custom:lat",
                 'Value': lat
             }
             {
-                'Name': "long",
+                'Name': "custom:long",
                 'Value': longi
             }
             ],
