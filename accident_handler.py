@@ -42,12 +42,18 @@ def lambda_handler(event, context):
     #Invocation of the lambda function from one lambda functions the other lambda function return the partner id 's 
     
     
-    #payload={"message":"hi you have been invoked ."}
-    #resp=invoke_lambda.invoke(FunctionName='partner_list',InvocationType='Event',Payload=json.dumps(payload))
+    payload={"id":AUID,
+    "device_id":device_id,
+    "loc":[latitude,longitude]
+        
+        
+        
+    }
+    resp=invoke_lambda.invoke(FunctionName='partner_list',InvocationType='Event',Payload=json.dumps(payload))
     
     
     #sending push notification to the partnerlist
-    
+    #response is our collection of data 
     
     return {
         'statusCode': 200,
