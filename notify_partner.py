@@ -92,7 +92,7 @@ def lambda_handler(event, context):
     #notification_to_partners = [['kmc_hosp',22.34,77.766],['olpolice',22.345,76.66],['firestatin',22.345,76.66]]
     #acc_loc=[22.34,67.67]
     data={
-        
+        'device_id':event['device_id']
         'AUID':event['id']
         'notification_to_partners':notification_bhej
         'token':token_list
